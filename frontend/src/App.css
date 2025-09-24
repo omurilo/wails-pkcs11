@@ -1,0 +1,96 @@
+#App {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    padding: 2rem;
+    color: #f0f0f0;
+    background-color: #1b2636;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+h1 {
+    color: #64b5f6;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select, button {
+    padding: 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #455a64;
+    background-color: #263238;
+    color: #eceff1;
+    font-size: 1rem;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #64b5f6;
+}
+
+button {
+    cursor: pointer;
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button:hover:not(:disabled) {
+    background-color: #42a5f5;
+}
+
+button:disabled {
+    background-color: #546e7a;
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.message {
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.message.success { background-color: #2e7d32; }
+.message.error { background-color: #c62828; }
+.message.info { background-color: #0277bd; }
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 4px solid #fff;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

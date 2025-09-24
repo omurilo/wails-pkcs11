@@ -1,0 +1,5 @@
+build/bin
+node_modules
+frontend/dist
+softhsm-tokens
+softhsm2.conf
