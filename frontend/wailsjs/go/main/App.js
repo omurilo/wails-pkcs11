@@ -10,6 +10,10 @@ export function EncryptFile(arg1, arg2, arg3, arg4, arg5) {
   return window['go']['main']['App']['EncryptFile'](arg1, arg2, arg3, arg4, arg5);
 }
 
+export function GetConfig() {
+  return window['go']['main']['App']['GetConfig']();
+}
+
 export function GetKeyLabelsForSlot(arg1, arg2) {
   return window['go']['main']['App']['GetKeyLabelsForSlot'](arg1, arg2);
 }
@@ -18,10 +22,22 @@ export function GetSlots() {
   return window['go']['main']['App']['GetSlots']();
 }
 
+export function SaveConfig(arg1) {
+  return window['go']['main']['App']['SaveConfig'](arg1);
+}
+
 export function SelectFileToShowDialog(arg1, arg2, arg3) {
   return window['go']['main']['App']['SelectFileToShowDialog'](arg1, arg2, arg3);
 }
 
+export function SelectModuleFile() {
+  return window['go']['main']['App']['SelectModuleFile']();
+}
+
 export function SelectSaveFileToShowDialog(arg1, arg2) {
   return window['go']['main']['App']['SelectSaveFileToShowDialog'](arg1, arg2);
+}
+
+export function UnsealVault(arg1) {
+  return window['go']['main']['App']['UnsealVault'](arg1);
 }
