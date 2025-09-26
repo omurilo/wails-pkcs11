@@ -174,7 +174,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onSave }
   const handleSelectFile = async () => {
     const path = await SelectModuleFile();
     if (path && config) {
-      setConfig({ ...config, Pkcs11ModulePath: path });
+      setConfig({ ...config, pkcs11_module_path: path });
     }
   };
 
@@ -207,8 +207,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onSave }
               <input
                 id="modulePath"
                 type="text"
-                value={config.Pkcs11ModulePath}
-                onChange={(e) => setConfig({ ...config, Pkcs11ModulePath: e.target.value })}
+                value={config.pkcs11_module_path}
+                onChange={(e) => setConfig({ ...config, pkcs11_module_path: e.target.value })}
                 placeholder="Ex: /usr/lib/libsofthsm2.so"
                 className="flex-grow bg-secondary-800 border border-secondary-600 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
               />
