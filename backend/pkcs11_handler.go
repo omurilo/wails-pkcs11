@@ -33,7 +33,7 @@ func (h *Pkcs11Handler) Finalize() {
 }
 
 func (h *Pkcs11Handler) GetSlotsWithInfo() (map[uint]string, error) {
-	slots, err := h.Ctx.GetSlotList(true) // true = only slots with a token
+	slots, err := h.Ctx.GetSlotList(true)
 	if err != nil {
 		return nil, fmt.Errorf("falha ao listar slots: %w", err)
 	}
@@ -42,7 +42,6 @@ func (h *Pkcs11Handler) GetSlotsWithInfo() (map[uint]string, error) {
 	for _, slotID := range slots {
 		info, err := h.Ctx.GetTokenInfo(slotID)
 		if err != nil {
-			// Alguns slots podem não ser legíveis, continuamos para o próximo
 			continue
 		}
 		slotInfoMap[slotID] = fmt.Sprintf("Slot %d: %s (S/N: %s)", slotID, info.Label, info.SerialNumber)
@@ -67,7 +66,6 @@ func (h *Pkcs11Handler) Logout(session pkcs11.SessionHandle) {
 }
 
 func (h *Pkcs11Handler) FindKeyPair(session pkcs11.SessionHandle, keyLabel string) (pkcs11.ObjectHandle, pkcs11.ObjectHandle, error) {
-	// Encontra Chave Privada
 	templatePriv := []*pkcs11.Attribute{
 		pkcs11.NewAttribute(pkcs11.CKA_CLASS, pkcs11.CKO_PRIVATE_KEY),
 		pkcs11.NewAttribute(pkcs11.CKA_LABEL, keyLabel),
@@ -77,7 +75,6 @@ func (h *Pkcs11Handler) FindKeyPair(session pkcs11.SessionHandle, keyLabel strin
 		return 0, 0, fmt.Errorf("chave privada com label '%s' não encontrada", keyLabel)
 	}
 
-	// Encontra Chave Pública
 	templatePub := []*pkcs11.Attribute{
 		pkcs11.NewAttribute(pkcs11.CKA_CLASS, pkcs11.CKO_PUBLIC_KEY),
 		pkcs11.NewAttribute(pkcs11.CKA_LABEL, keyLabel),
@@ -107,7 +104,6 @@ func (h *Pkcs11Handler) findObject(session pkcs11.SessionHandle, template []*pkc
 }
 
 func (h *Pkcs11Handler) ListKeyLabels(session pkcs11.SessionHandle) ([]string, error) {
-	// Template para buscar por todas as chaves privadas
 	template := []*pkcs11.Attribute{
 		pkcs11.NewAttribute(pkcs11.CKA_CLASS, pkcs11.CKO_PRIVATE_KEY),
 	}
@@ -117,24 +113,20 @@ func (h *Pkcs11Handler) ListKeyLabels(session pkcs11.SessionHandle) ([]string, e
 	}
 	defer h.Ctx.FindObjectsFinal(session)
 
-	// Busca em lotes de 10 para não sobrecarregar
 	var labels []string
 	foundHandles, _, err := h.Ctx.FindObjects(session, 100) // Busca até 100 chaves
 	if err != nil {
 		return nil, fmt.Errorf("FindObjects falhou: %w", err)
 	}
 
-	// Para cada handle encontrado, pega o seu CKA_LABEL
 	for _, handle := range foundHandles {
 		attrs, err := h.Ctx.GetAttributeValue(session, handle, []*pkcs11.Attribute{
 			pkcs11.NewAttribute(pkcs11.CKA_LABEL, nil),
 		})
 		if err != nil {
-			// Não para o processo, apenas loga que uma chave não pôde ser lida
 			fmt.Printf("Aviso: Falha ao ler atributos da chave handle %d: %v\n", handle, err)
 			continue
 		}
-		// O valor do atributo é um []byte, convertemos para string
 		labels = append(labels, string(attrs[0].Value))
 	}
 

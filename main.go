@@ -12,10 +12,8 @@ import (
 var assets embed.FS
 
 func main() {
-	// Cria uma instância da app
 	app := NewApp()
 
-	// Cria a aplicação Wails com as opções
 	err := wails.Run(&options.App{
 		Title:  "Vault PKCS#11 Sealer",
 		Width:  1024,
